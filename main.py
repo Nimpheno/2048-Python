@@ -1,28 +1,35 @@
 import pygame
-import game_controller
+import game_controller as game
 import storage_manager
 import view
 
 
-direction = ''
-stored_high_score = False
-
-game_controller.init_game()
+game.init_game()
 highest_score = storage_manager.read_top_score()
 
+direction = ''
+has_completed_game = False
 run = True
+elapsed_time = 0
+
 # main game loop
 while run:
-    view.draw_board(game_controller.board, highest_score, game_controller.score)
-    if not game_controller.has_possible_moves():
-        view.draw_over()
-        if not stored_high_score:
-            storage_manager.store_high_score(game_controller.score)
-            stored_high_score = True
+    if not has_completed_game:
+        elapsed_time = game.get_elapsed_time()
 
+    view.draw_board(game.board, highest_score, game.score, elapsed_time)
+    if game.is_win_the_game():
+        view.draw_win()
+        game.check_high_score_reached()
+        has_completed_game = True
+
+    if not game.has_possible_moves():
+        view.draw_over()
+        game.check_high_score_reached()
+        has_completed_game = True
 
     if direction != '':
-        game_controller.take_turn(direction)
+        game.take_turn(direction)
         direction = ''
 
     for event in pygame.event.get():
@@ -41,7 +48,8 @@ while run:
             if event.key == pygame.K_t:
                 view.switch_mood()
             if event.key == pygame.K_n:
-                game_controller.init_game()
-                stored_high_score = False
+                game.init_game()
+                has_completed_game = False
 
     pygame.display.flip()
+pygame.quit()

@@ -1,6 +1,8 @@
 WIDTH = 400
 HEIGHT = 500
 
+BG_FILL_COLOR = 'gray'
+
 DAY_MOOD_COLORS = {
     0: (204, 192, 179),
     2: (238, 228, 218),

@@ -1,5 +1,7 @@
 import random
 import copy
+import time
+import storage_manager
 
 BOX_SIZE = 4
 INITIAL_TILE = 2
@@ -7,15 +9,36 @@ FINAL_TILE = 2048
 
 score = 0
 board = []
+start_time = 0
+stored_high_score = False
 
 
 def init_game():
     global board
     global score
+    global start_time
+    global stored_high_score
     board = [[0 for _ in range(BOX_SIZE)] for _ in range(BOX_SIZE)]
     score = 0
+    start_time = time.time()
+    stored_high_score = False
     add_number()
     add_number()
+
+
+def is_win_the_game():
+    for i in range(BOX_SIZE):
+        for j in range(BOX_SIZE):
+            if board[i][j] == FINAL_TILE:
+                return True
+    return False
+
+
+def check_high_score_reached():
+    global stored_high_score
+    if not stored_high_score:
+        storage_manager.store_high_score(score)
+        stored_high_score = True
 
 
 # take your turn based on direction
@@ -35,15 +58,16 @@ def take_turn(direction):
         add_number()
 
 
-def has_possible_moves():
-    # global board
-    # board = [
-    #     [2, 4, 8, 16],
-    #     [4, 8, 16, 32],
-    #     [2, 4, 8, 16],
-    #     [4, 8, 16, 32],
-    # ]
+def get_elapsed_time():
+    end_time = time.time()
+    sec = end_time - start_time
+    mins = sec // 60
+    sec = sec % 60
+    mins = mins % 60
+    return "{0}:{1}".format(int(mins), int(sec))
 
+
+def has_possible_moves():
     if __has_empty_places():
         return True
 
@@ -146,14 +170,6 @@ def add_number():
         board[row][col] = INITIAL_TILE * 2
     else:
         board[row][col] = INITIAL_TILE
-
-
-def is_win_the_game():
-    win = False
-    for i in range(BOX_SIZE):
-        for j in range(BOX_SIZE):
-            if board[i][j] == 2048:
-                win = True
 
 
 def __get_empty_places_coordinates():

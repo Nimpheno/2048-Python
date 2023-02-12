@@ -13,20 +13,21 @@ def switch_mood():
     global colors
     colors = settings.NIGHT_MOOD_COLORS if colors == settings.DAY_MOOD_COLORS else settings.DAY_MOOD_COLORS
 
-def draw_board(board, high_score, current_score):
-    screen.fill('gray')
+
+def draw_board(board, high_score, current_score, elapsed_time):
+    screen.fill(settings.BG_FILL_COLOR)
     pygame.draw.rect(screen, colors['BG'], [0, 0, 400, 400], 0, 10)
     score_text = FONT.render(f'Score: {current_score}', True, 'black')
-    ticks = pygame.time.get_ticks()
-    seconds = int(ticks / 1000 % 60)
-    minutes = int(ticks / 60000 % 24)
-    stop_watch = '{minutes:02d}:{seconds:02d}'.format(minutes=minutes, seconds=seconds)
-    stopwatch_text = FONT.render(f'Stopwatch: {stop_watch}', True, 'black')
+    stopwatch_text = FONT.render(f'Stopwatch: {elapsed_time}', True, 'black')
     high_score_text = FONT.render(f'High Score: {high_score}', True, 'black')
     screen.blit(score_text, (10, 410))
     screen.blit(stopwatch_text, (10, 460))
     screen.blit(high_score_text, (10, 430))
     __draw_pieces(board)
+
+
+def draw_win():
+    pass
 
 
 def draw_over():
