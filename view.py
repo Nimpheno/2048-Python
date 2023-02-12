@@ -20,9 +20,12 @@ def draw_board(board, high_score, current_score, elapsed_time):
     score_text = FONT.render(f'Score: {current_score}', True, 'black')
     stopwatch_text = FONT.render(f'Stopwatch: {elapsed_time}', True, 'black')
     high_score_text = FONT.render(f'High Score: {high_score}', True, 'black')
+    new_game_text = "Press N for new game"
+    new_game = FONT.render(f'{new_game_text}', True, 'black')
     screen.blit(score_text, (10, 410))
-    screen.blit(stopwatch_text, (10, 460))
-    screen.blit(high_score_text, (10, 430))
+    screen.blit(stopwatch_text, (10, 483))
+    screen.blit(high_score_text, (10, 445))
+    screen.blit(new_game, (10, 520))
     __draw_pieces(board)
 
 
@@ -36,11 +39,11 @@ def draw_over():
 
 
 def __draw_final_text(text):
-    pygame.draw.rect(screen, 'black', [50, 50, 400, 100], 0, 10)
+    pygame.draw.rect(screen, 'black', [30, 50, 360, 90], 0, 10)
     final_text = FONT.render(text, True, 'white')
     final_text2 = FONT.render('Press N to start a new game', True, 'white')
-    screen.blit(final_text, (130, 65))
-    screen.blit(final_text2, (70, 105))
+    screen.blit(final_text, (135, 65))
+    screen.blit(final_text2, (50, 105))
 
 
 def __draw_pieces(board):
