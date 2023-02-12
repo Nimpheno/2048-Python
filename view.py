@@ -6,11 +6,16 @@ pygame.init()
 screen = pygame.display.set_mode([settings.WIDTH, settings.HEIGHT])
 pygame.display.set_caption('2048')
 FONT = pygame.font.Font('freesansbold.ttf', 24)
-# screen.fill('gray')
+colors = settings.DAY_MOOD_COLORS
+
+
+def switch_mood():
+    global colors
+    colors = settings.NIGHT_MOOD_COLORS if colors == settings.DAY_MOOD_COLORS else settings.DAY_MOOD_COLORS
 
 def draw_board(board, high_score, current_score):
     screen.fill('gray')
-    pygame.draw.rect(screen, settings.colors['bg'], [0, 0, 400, 400], 0, 10)
+    pygame.draw.rect(screen, colors['BG'], [0, 0, 400, 400], 0, 10)
     score_text = FONT.render(f'Score: {current_score}', True, 'black')
     ticks = pygame.time.get_ticks()
     seconds = int(ticks / 1000 % 60)
@@ -38,13 +43,13 @@ def __draw_pieces(board):
         for j in range(board_size):
             value = board[i][j]
             if value > 8:
-                value_color = settings.colors['light text']
+                value_color = colors['LIGHT_TEXT']
             else:
-                value_color = settings.colors['dark text']
+                value_color = colors['DARK_TEXT']
             if value <= 2048:
-                color = settings.colors[value]
+                color = colors[value]
             else:
-                color = settings.colors['other']
+                color = colors['OTHER']
             pygame.draw.rect(screen, color, [j * 95 + 20, i * 95 + 20, 75, 75], 0, 5)
             if value > 0:
                 value_len = len(str(value))

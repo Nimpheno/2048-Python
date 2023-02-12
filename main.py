@@ -38,6 +38,8 @@ while run:
                 direction = 'LEFT'
             if event.key == pygame.K_RIGHT:
                 direction = 'RIGHT'
+            if event.key == pygame.K_t:
+                view.switch_mood()
             if event.key == pygame.K_n:
                 game_controller.init_game()
                 stored_high_score = False
