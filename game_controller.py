@@ -5,7 +5,7 @@ import storage_manager
 
 BOX_SIZE = 4
 INITIAL_TILE = 2
-FINAL_TILE = 8
+FINAL_TILE = 2048
 
 score = 0
 board = []
