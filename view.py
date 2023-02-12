@@ -19,15 +19,15 @@ def draw_board(board, high_score, current_score, elapsed_time):
     score_text = FONT.render(f'Score: {current_score}', True, 'black')
     stopwatch_text = FONT.render(f'Stopwatch: {elapsed_time}', True, 'black')
     high_score_text = FONT.render(f'High Score: {high_score}', True, 'black')
-    day_ana_dark_mood_text = "Press T for dark/day mood"
-    day_ana_dark_mood = FONT.render(f'{day_ana_dark_mood_text}', True, 'black')
+    day_and_dark_mood_text = "Press T for dark/day mood"
+    day_and_dark_mood = FONT.render(f'{day_and_dark_mood_text}', True, 'black')
     new_game_text = "Press N for new game"
     new_game = FONT.render(f'{new_game_text}', True, 'black')
     screen.blit(score_text, (10, 410))
     screen.blit(stopwatch_text, (10, 483))
     screen.blit(high_score_text, (10, 445))
     screen.blit(new_game, (10, 520))
-    screen.blit(day_ana_dark_mood, (10, 558))
+    screen.blit(day_and_dark_mood, (10, 558))
     __draw_pieces(board)
 
 
