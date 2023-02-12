@@ -1,0 +1,56 @@
+import pygame
+import view_settings as settings
+
+
+pygame.init()
+screen = pygame.display.set_mode([settings.WIDTH, settings.HEIGHT])
+pygame.display.set_caption('2048')
+FONT = pygame.font.Font('freesansbold.ttf', 24)
+# screen.fill('gray')
+
+def draw_board(board, high_score, current_score):
+    screen.fill('gray')
+    pygame.draw.rect(screen, settings.colors['bg'], [0, 0, 400, 400], 0, 10)
+    score_text = FONT.render(f'Score: {current_score}', True, 'black')
+    ticks = pygame.time.get_ticks()
+    seconds = int(ticks / 1000 % 60)
+    minutes = int(ticks / 60000 % 24)
+    stop_watch = '{minutes:02d}:{seconds:02d}'.format(minutes=minutes, seconds=seconds)
+    stopwatch_text = FONT.render(f'Stopwatch: {stop_watch}', True, 'black')
+    high_score_text = FONT.render(f'High Score: {high_score}', True, 'black')
+    screen.blit(score_text, (10, 410))
+    screen.blit(stopwatch_text, (10, 460))
+    screen.blit(high_score_text, (10, 430))
+    __draw_pieces(board)
+
+
+def draw_over():
+    pygame.draw.rect(screen, 'black', [50, 50, 300, 100], 0, 10)
+    game_over_text1 = FONT.render('Game Over!', True, 'white')
+    game_over_text2 = FONT.render('Press N to start a new game', True, 'white')
+    screen.blit(game_over_text1, (130, 65))
+    screen.blit(game_over_text2, (70, 105))
+
+
+def __draw_pieces(board):
+    board_size = len(board)
+    for i in range(board_size):
+        for j in range(board_size):
+            value = board[i][j]
+            if value > 8:
+                value_color = settings.colors['light text']
+            else:
+                value_color = settings.colors['dark text']
+            if value <= 2048:
+                color = settings.colors[value]
+            else:
+                color = settings.colors['other']
+            pygame.draw.rect(screen, color, [j * 95 + 20, i * 95 + 20, 75, 75], 0, 5)
+            if value > 0:
+                value_len = len(str(value))
+                font = pygame.font.Font('freesansbold.ttf', 48 - (5 * value_len))
+                value_text = font.render(str(value), True, value_color)
+                text_rect = value_text.get_rect(center=(j * 95 + 57, i * 95 + 57))
+                screen.blit(value_text, text_rect)
+                pygame.draw.rect(screen, 'black', [j * 95 + 20, i * 95 + 20, 75, 75], 2, 5)
+
