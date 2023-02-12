@@ -36,6 +36,14 @@ def take_turn(direction):
 
 
 def has_possible_moves():
+    # global board
+    # board = [
+    #     [2, 4, 8, 16],
+    #     [4, 8, 16, 32],
+    #     [2, 4, 8, 16],
+    #     [4, 8, 16, 32],
+    # ]
+
     if __has_empty_places():
         return True
 
@@ -44,8 +52,8 @@ def has_possible_moves():
             if board[x][y] == board[x][y + 1]:
                 return True
 
-    for y in range(BOX_SIZE):
-        for x in range(BOX_SIZE - 1):
+    for x in range(BOX_SIZE - 1):
+        for y in range(BOX_SIZE):
             if board[x][y] == board[x + 1][y]:
                 return True
     return False
@@ -158,4 +166,4 @@ def __get_empty_places_coordinates():
 
 
 def __has_empty_places():
-    return len(__get_empty_places_coordinates()) == 0
+    return len(__get_empty_places_coordinates()) != 0

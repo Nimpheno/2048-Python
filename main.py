@@ -44,55 +44,6 @@ def draw_over():
     screen.blit(game_over_text1, (130, 65))
     screen.blit(game_over_text2, (70, 105))
 
-# def haveNoMoreMoves(board):
-#     haveMove = False
-#     column = []
-#     slided = []
-#     size = len(board)
-#     for j in range(size - 1):
-#         for i in range(size - 1):
-#             if board[j][i] != 0:
-#                 column.append(board[j][i])
-#         merge(column, slided)
-#
-#         for i in range(size):
-#             if slided:
-#                 board[j][i] = slided.pop(0)
-#             else:
-#                 board[j][i] = 0
-#         for i in range(size - 1):
-#             if slided[i] == 0 and slided[i + 1] != 0:
-#                 haveMove = True
-#             else:
-#                 haveMove = False
-#         column.clear()
-#         slided.clear()
-#
-#     return haveMove
-#
-#     # for j in range(len(given) - 1):
-#     #     if slided[j] == 0 and slided[j+1] != 0:
-#     #         new_pieces(board_values)
-#
-#     given.clear()
-#     # sizeOfTiles = len(tiles)
-#     # merged_tiles = []
-#     # for i in range(sizeOfTiles):
-#     #     if i < sizeOfTiles - 1 and tiles[i] == tiles[i+1]:
-#     #         merged_tiles = tiles[i] * 2
-#     #
-#     #         tiles[i] *= 2
-#     #         tiles[i+1] = tiles[i+2]
-#     #         tiles[i+2] = 0
-#     #         i += 1
-#     #
-#     #     return tiles
-#     # # tiles[i] *= 2
-#     # # tiles[i + 1] = tiles [i+2]
-
-
-# spawn in new pieces randomly when turns start
-
 
 # draw background for the board
 def draw_board(high_score):
@@ -134,21 +85,10 @@ def draw_pieces(board):
 
 # main game loop
 
-# storage_manager.store_high_score(50)
-# storage_manager.store_high_score(23)
-# storage_manager.store_high_score(58)
-# storage_manager.store_high_score(24)
-# storage_manager.store_high_score(152)
-# storage_manager.store_high_score(84)
-# storage_manager.store_high_score(250)
-# storage_manager.store_high_score(530)
-# storage_manager.store_high_score(540)
-# # storage_manager.store_high_score(45)
-# storage_manager.store_high_score(2048)
-# storage_manager.store_high_score(1024)
 
 game_controller.init_game()
 highest_score = storage_manager.read_top_score()
+stored_high_score = False
 
 run = True
 while run:
@@ -157,33 +97,22 @@ while run:
     draw_board(highest_score)
     draw_pieces(game_controller.board)
     if not game_controller.has_possible_moves():
-        storage_manager.store_high_score(game_controller.score)
         draw_over()
-        # TODO: draw GAVE OVER
+        if not stored_high_score:
+            storage_manager.store_high_score(game_controller.score)
+            stored_high_score = True
 
-    # if spawn_new or init_count < 2:
-    #     game_controller.add_number(board_values)
-    #     spawn_new = False
-    #     init_count += 1
+
     if direction != '':
         game_controller.take_turn(direction)
         direction = ''
         spawn_new = True
-
-    # if game_over:
-    # draw_over()
-    # if high_score > init_high:
-    #     file = open('high_score.txt', 'w')
-    #     file.write(f'{high_score}')
-    #     file.close()
-    #     init_high = high_score
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             direction = 'QUIT'
             run = False
         if event.type == pygame.KEYUP:
-            storage_manager.store_high_score(game_controller.score)
             if event.key == pygame.K_UP:
                 direction = 'UP'
             if event.key == pygame.K_DOWN:
@@ -194,4 +123,9 @@ while run:
                 direction = 'RIGHT'
 
     pygame.display.flip()
-pygame.quit()
+
+# if game_over:
+#     print("GAME OVER")
+#     draw_over()
+
+# pygame.quit()
