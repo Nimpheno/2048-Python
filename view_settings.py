@@ -1,5 +1,5 @@
 WIDTH = 400
-HEIGHT = 600
+HEIGHT = 555
 
 BG_FILL_COLOR = 'gray'
 

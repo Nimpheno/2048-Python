@@ -1,7 +1,6 @@
 import pygame
 import view_settings as settings
 
-
 pygame.init()
 screen = pygame.display.set_mode([settings.WIDTH, settings.HEIGHT])
 pygame.display.set_caption('2048')
@@ -27,7 +26,6 @@ def draw_board(board, high_score, current_score, elapsed_time):
     screen.blit(high_score_text, (10, 445))
     screen.blit(new_game, (10, 520))
     __draw_pieces(board)
-
 
 
 def draw_win():
@@ -67,4 +65,3 @@ def __draw_pieces(board):
                 text_rect = value_text.get_rect(center=(j * 95 + 57, i * 95 + 57))
                 screen.blit(value_text, text_rect)
                 pygame.draw.rect(screen, 'black', [j * 95 + 20, i * 95 + 20, 75, 75], 2, 5)
-
