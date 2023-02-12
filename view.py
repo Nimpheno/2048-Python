@@ -26,16 +26,21 @@ def draw_board(board, high_score, current_score, elapsed_time):
     __draw_pieces(board)
 
 
+
 def draw_win():
-    pass
+    __draw_final_text("YOU WON!")
 
 
 def draw_over():
-    pygame.draw.rect(screen, 'black', [50, 50, 300, 100], 0, 10)
-    game_over_text1 = FONT.render('Game Over!', True, 'white')
-    game_over_text2 = FONT.render('Press N to start a new game', True, 'white')
-    screen.blit(game_over_text1, (130, 65))
-    screen.blit(game_over_text2, (70, 105))
+    __draw_final_text("GAME OVER!")
+
+
+def __draw_final_text(text):
+    pygame.draw.rect(screen, 'black', [50, 50, 400, 100], 0, 10)
+    final_text = FONT.render(text, True, 'white')
+    final_text2 = FONT.render('Press N to start a new game', True, 'white')
+    screen.blit(final_text, (130, 65))
+    screen.blit(final_text2, (70, 105))
 
 
 def __draw_pieces(board):

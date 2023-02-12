@@ -28,7 +28,7 @@ while run:
         game.check_high_score_reached()
         has_completed_game = True
 
-    if direction != '':
+    if direction != '' and not has_completed_game:
         game.take_turn(direction)
         direction = ''
 
